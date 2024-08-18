@@ -12,6 +12,7 @@ import ru.practicum.model.ViewStatsDto;
 import ru.practicum.service.StatsService;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -32,15 +33,31 @@ public class StatsController {
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<List<ViewStatsDto>> getStats(
-            @RequestParam("start") @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
-            @RequestParam("end") @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
+    public ResponseEntity<?> getStats(
+            @RequestParam(value = "start", required = false) String startStr,
+            @RequestParam(value = "end", required = false) String endStr,
             @RequestParam(required = false, value = "uris") List<String> uris,
             @RequestParam(required = false, value = "unique") boolean unique
     ) {
         log.info("Statistic Controller, getStats, parameters: start {}, end {}, uris {}, unique {}",
-                start, end, uris, unique);
+                startStr, endStr, uris, unique);
+
+        LocalDateTime start, end;
+
+        try {
+            if (startStr == null || endStr == null) {
+                return ResponseEntity.badRequest().body("Start and end parameters are required");
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+            start = LocalDateTime.parse(startStr, formatter);
+            end = LocalDateTime.parse(endStr, formatter);
+        } catch (DateTimeParseException e) {
+            log.error("Error parsing date: {}", e.getMessage());
+            return ResponseEntity.badRequest().body("Invalid date format. Expected format: " + DATE_FORMAT);
+        }
+
         List<ViewStatsDto> statsList = statsService.findHitsByParams(start, end, uris, unique);
-        return new ResponseEntity<>(statsList, HttpStatus.OK);
+        return ResponseEntity.ok(statsList);
     }
 }
