@@ -30,9 +30,11 @@ public class StatsServiceImpl implements StatsService {
                                                Boolean unique
     ) {
         if (Boolean.TRUE.equals(unique)) {
-            return hitRepository.findAllUnique(start, end, uris);
+            List<ViewStatsDto> test = hitRepository.findAllUnique(start, end, uris);
+            return test;
         } else {
-            returnhitRepository.findAll(start, end, uris);
+            List<ViewStatsDto> test2 = hitRepository.findAll(start, end, uris);
+            return test2;
         }
     }
 }
