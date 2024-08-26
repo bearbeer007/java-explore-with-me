@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 public class EndpointHitDto {
     private Long id;
     @NotBlank
