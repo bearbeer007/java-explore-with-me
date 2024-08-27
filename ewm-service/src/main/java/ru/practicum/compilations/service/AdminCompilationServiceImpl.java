@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class AdminCompilationServiceImpl extends CompilationBase implements AdminCompilationService {
+public class AdminCompilationServiceImpl extends EventBase implements AdminCompilationService {
     public final EventRepository eventRepository;
 
     public final CompilationMapper compilationMapper;
