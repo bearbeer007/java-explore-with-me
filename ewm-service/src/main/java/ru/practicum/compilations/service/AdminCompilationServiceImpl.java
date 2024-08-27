@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class AdminCompilationServiceImpl extends CompilationBase implements AdminCompilationService {
-    private final EventRepository eventRepository;
+    public final EventRepository eventRepository;
 
-    private final CompilationMapper compilationMapper;
+    public final CompilationMapper compilationMapper;
 
-    private final CompilationRepository compilationRepository;
+    public final CompilationRepository compilationRepository;
 
-    private final EventMapper eventMapper;
+    public final EventMapper eventMapper;
 
     public AdminCompilationServiceImpl(EventRepository eventRepository,
                                        CompilationRepository compilationRepository,
@@ -88,7 +88,7 @@ public class AdminCompilationServiceImpl extends CompilationBase implements Admi
         return compilationMapper.compilationToCompilationDto(compilationRepository.save(compilation), eventShortDtos);
     }
 
-    private List<EventShortDto> createEventShortDto(Compilation compilation) {
+    public List<EventShortDto> createEventShortDto(Compilation compilation) {
         Set<Event> allEvents = compilation.getEvents();
         Map<Long, Long> views = getViewsForEvents(allEvents);
         Map<Long, Long> confirmed = getConfirmedRequests(allEvents);
