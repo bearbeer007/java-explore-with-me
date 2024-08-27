@@ -53,7 +53,7 @@ public class PrivateEventController {
     ) {
         log.info("Изменение события {}, пользователем с идентификатором {}", eventId, userId);
         if (eventUpdateUser.getEventDate() != null
-                && eventUpdateUser.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
+                && eventUpdateUser.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new ValidationException("Ошибка даты");
         }
         EventDto result = privateEventService.updateEvent(userId, eventId, eventUpdateUser);
