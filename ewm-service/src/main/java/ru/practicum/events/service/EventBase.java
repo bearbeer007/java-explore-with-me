@@ -25,36 +25,7 @@ class EventBase {
 
     private final StatsClient statsClient;
 
-    private final StatsClient statsClient;
-
     protected Map<Long, Long> getViewsForEvents(List<Event> events) {
-        Map<String, Long> eventUrisAndIds = events.stream()
-                .collect(Collectors.toMap(
-                        event -> String.format("/events/%s", event.getId()),
-                        Event::getId
-                ));
-        List<LocalDateTime> startDates = events.stream()
-                .map(Event::getCreatedOn)
-                .collect(Collectors.toList());
-        LocalDateTime startDate = startDates.stream()
-                .min(LocalDateTime::compareTo)
-                .orElse(null);
-        Map<Long, Long> statsMap = new HashMap<>();
-
-        if (startDate != null) {
-            List<ViewStatsDto> stats = statsClient.getStats(
-                    LocalDateTime.of(2020, 1, 1, 0, 0).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                    LocalDateTime.of(2025, 12, 31, 23, 59, 59)
-                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), List.copyOf(eventUrisAndIds.keySet()), true);
-            statsMap = stats.stream().collect(Collectors.toMap(
-                    statsDto -> parseEventIdFromUrl(statsDto.getUri()),
-                    ViewStatsDto::getHits
-            ));
-        }
-        return statsMap;
-    }
-
-    protected Map<Long, Long> getViewsForEvents(Set<Event> events) {
         Map<String, Long> eventUrisAndIds = events.stream()
                 .collect(Collectors.toMap(
                         event -> String.format("/events/%s", event.getId()),

@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class PublicCompilationServiceImpl extends EventBase implements PublicCompilationService {
+public class PublicCompilationServiceImpl extends CompilationBase implements PublicCompilationService {
 
     private final CompilationMapper compilationMapper;
 
