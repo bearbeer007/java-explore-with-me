@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class AdminCompilationServiceImpl extends CompilationBase implements AdminCompilationService {
-    public final EventRepository eventRepository;
+    private final EventRepository eventRepository;
 
-    public final CompilationMapper compilationMapper;
+    private final CompilationMapper compilationMapper;
 
-    public final CompilationRepository compilationRepository;
+    private final CompilationRepository compilationRepository;
 
-    public final EventMapper eventMapper;
+    private final EventMapper eventMapper;
 
     public AdminCompilationServiceImpl(EventRepository eventRepository,
                                        CompilationRepository compilationRepository,
