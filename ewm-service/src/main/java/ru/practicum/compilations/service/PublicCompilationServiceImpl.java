@@ -10,6 +10,7 @@ import ru.practicum.compilations.repository.CompilationRepository;
 import ru.practicum.events.dto.EventShortDto;
 import ru.practicum.events.mapper.EventMapper;
 import ru.practicum.events.model.Event;
+import ru.practicum.events.service.EventBase;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.requests.repository.RequestRepository;
 
@@ -19,12 +20,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class PublicCompilationServiceImpl extends CompilationBase implements PublicCompilationService {
+public class PublicCompilationServiceImpl extends EventBase implements PublicCompilationService {
 
     private final CompilationMapper compilationMapper;
-
     private final CompilationRepository compilationRepository;
-
     private final EventMapper eventMapper;
 
     public PublicCompilationServiceImpl(CompilationRepository compilationRepository,
@@ -49,13 +48,10 @@ public class PublicCompilationServiceImpl extends CompilationBase implements Pub
         Set<Event> allEvents = compilations.stream()
                 .flatMap(compilation -> compilation.getEvents().stream())
                 .collect(Collectors.toSet());
-        Map<Long, Long> views = getViewsForEvents(allEvents);
-        Map<Long, Long> confirmed = getConfirmedRequests(allEvents);
+        Map<Long, Long> views = getViewsForEvents(allEvents.stream().collect(Collectors.toList()));
+        Map<Long, Long> confirmed = getConfirmedRequests(allEvents.stream().collect(Collectors.toList()));
 
-        List<CompilationDto> compilationDtos;
-
-        compilationDtos = compilationMapper.compilationsListToCompilationDtoList(compilations, confirmed, views);
-        return compilationDtos;
+        return compilationMapper.compilationsListToCompilationDtoList(compilations, confirmed, views);
     }
 
     @Override
@@ -64,8 +60,8 @@ public class PublicCompilationServiceImpl extends CompilationBase implements Pub
                 -> new NotFoundException("Подборка с id: " + compilationId + " не найдена или недоступна"));
 
         Set<Event> allEvents = compilation.getEvents();
-        Map<Long, Long> views = getViewsForEvents(allEvents);
-        Map<Long, Long> confirmed = getConfirmedRequests(allEvents);
+        Map<Long, Long> views = getViewsForEvents(allEvents.stream().collect(Collectors.toList()));
+        Map<Long, Long> confirmed = getConfirmedRequests(allEvents.stream().collect(Collectors.toList()));
 
         List<EventShortDto> eventShortDtos = allEvents.stream()
                 .map(event -> eventMapper.eventToEventShortDto(event,

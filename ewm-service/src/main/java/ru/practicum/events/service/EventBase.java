@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+public
 class EventBase {
 
     private final RequestRepository requestRepository;
