@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class AdminCompilationServiceImpl extends EventBase implements AdminCompilationService {
+public class AdminCompilationServiceImpl extends CompilationBase implements AdminCompilationService {
     private final EventRepository eventRepository;
     private final CompilationMapper compilationMapper;
     private final CompilationRepository compilationRepository;
@@ -86,10 +86,10 @@ public class AdminCompilationServiceImpl extends EventBase implements AdminCompi
         return compilationMapper.compilationToCompilationDto(compilationRepository.save(compilation), eventShortDtos);
     }
 
-    public List<EventShortDto> createEventShortDto(Compilation compilation) {
+    private List<EventShortDto> createEventShortDto(Compilation compilation) {
         Set<Event> allEvents = compilation.getEvents();
-        Map<Long, Long> views = getViewsForEvents(allEvents.stream().collect(Collectors.toList()));
-        Map<Long, Long> confirmed = getConfirmedRequests(allEvents.stream().collect(Collectors.toList()));
+        Map<Long, Long> views = getViewsForEvents(allEvents);
+        Map<Long, Long> confirmed = getConfirmedRequests(allEvents);
 
         return allEvents.stream()
                 .map(event -> eventMapper.eventToEventShortDto(event,

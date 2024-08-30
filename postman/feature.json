@@ -31,12 +31,12 @@
                   "pm.test(\"Test user 'email' field\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    pm.expect(jsonData).to.have.property('email');\r",
-                  "    pm.expect(jsonData.email, '\"email\" must be \"Mikhail@ya.ru\"').to.eql('Mikhail@ya.ru');\r",
+                  "    pm.expect(jsonData.email, '\"email\" must be \"jew.dmitriev@yandex.ru\"').to.eql('jew.dmitriev@yandex.ru');\r",
                   "});\r",
                   "pm.test(\"Test user 'name' field\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    pm.expect(jsonData).to.have.property('name');\r",
-                  "    pm.expect(jsonData.name, '\"name\" must be \"Mikhail\"').to.eql('Mikhail');\r",
+                  "    pm.expect(jsonData.name, '\"name\" must be \"Igor\"').to.eql('Igor');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -49,7 +49,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Mikhail\",\r\n    \"email\": \"Mikhail@ya.ru\"\r\n}",
+              "raw": "{\r\n    \"name\": \"Igor\",\r\n    \"email\": \"jew.dmitriev@yandex.ru\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
