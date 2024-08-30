@@ -12,7 +12,6 @@ import ru.practicum.events.dto.EventShortDto;
 import ru.practicum.events.mapper.EventMapper;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.repository.EventRepository;
-import ru.practicum.events.service.EventBase;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.requests.repository.RequestRepository;
 
