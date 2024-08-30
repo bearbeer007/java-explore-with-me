@@ -29,7 +29,7 @@ public class AdminCategoryController {
     }
 
     @PatchMapping("/{categoryId}")
-    public ResponseEntity<CategoryDto> updateCategory(@RequestBody @Valid CategoryDto newCategoryDTO,
+    public ResponseEntity<CategoryDto> updateCategory(@RequestBody @Valid NewCategoryDto newCategoryDTO,
                                                       @PathVariable @Positive Long categoryId) {
         log.info("Изменение категории с идентификатором: {}", newCategoryDTO);
         CategoryDto categoryDto = categoryService.updateCategory(categoryId, newCategoryDTO);

@@ -95,17 +95,12 @@ public class RequestServiceImpl implements RequestService {
         return requests.stream().map(requestMapper::requestToParticipationRequestDto).collect(Collectors.toList());
     }
 
+    @Override
     public ParticipationRequestDto cancelRequest(Long userId, Long requestId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь с id: " + userId + " не найден"));
+        userRepository.findById(userId).orElseThrow(()
+                -> new NotFoundException("Пользователь с id: " + userId + " не найден"));
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new NotFoundException("Запрос с id: " + requestId + " не найден"));
-
-        // Проверяем, является ли текущий пользователь создателем запроса
-        if (!request.getRequester().getId().equals(userId)) {
-            throw new ViolationException("Пользователь с id: " + userId + " не может отменить чужой запрос");
-        }
-
         request.setStatus(CANCELED);
         return requestMapper.requestToParticipationRequestDto(requestRepository.save(request));
     }

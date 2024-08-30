@@ -12,7 +12,6 @@ import ru.practicum.events.dto.EventShortDto;
 import ru.practicum.events.mapper.EventMapper;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.repository.EventRepository;
-import ru.practicum.events.service.EventBase;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.requests.repository.RequestRepository;
 
@@ -23,10 +22,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class AdminCompilationServiceImpl extends EventBase implements AdminCompilationService {
+public class AdminCompilationServiceImpl extends CompilationBase implements AdminCompilationService {
     private final EventRepository eventRepository;
+
     private final CompilationMapper compilationMapper;
+
     private final CompilationRepository compilationRepository;
+
     private final EventMapper eventMapper;
 
     public AdminCompilationServiceImpl(EventRepository eventRepository,
@@ -86,15 +88,17 @@ public class AdminCompilationServiceImpl extends EventBase implements AdminCompi
         return compilationMapper.compilationToCompilationDto(compilationRepository.save(compilation), eventShortDtos);
     }
 
-    public List<EventShortDto> createEventShortDto(Compilation compilation) {
+    private List<EventShortDto> createEventShortDto(Compilation compilation) {
         Set<Event> allEvents = compilation.getEvents();
-        Map<Long, Long> views = getViewsForEvents(allEvents.stream().collect(Collectors.toList()));
-        Map<Long, Long> confirmed = getConfirmedRequests(allEvents.stream().collect(Collectors.toList()));
+        Map<Long, Long> views = getViewsForEvents(allEvents);
+        Map<Long, Long> confirmed = getConfirmedRequests(allEvents);
 
         return allEvents.stream()
                 .map(event -> eventMapper.eventToEventShortDto(event,
                         views.getOrDefault(event.getId(), 0L),
                         confirmed.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
+
+
     }
 }
