@@ -24,8 +24,11 @@ import java.util.stream.Collectors;
 @Service
 public class AdminCompilationServiceImpl extends CompilationBase implements AdminCompilationService {
     private final EventRepository eventRepository;
+
     private final CompilationMapper compilationMapper;
+
     private final CompilationRepository compilationRepository;
+
     private final EventMapper eventMapper;
 
     public AdminCompilationServiceImpl(EventRepository eventRepository,
@@ -95,5 +98,7 @@ public class AdminCompilationServiceImpl extends CompilationBase implements Admi
                         views.getOrDefault(event.getId(), 0L),
                         confirmed.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
+
+
     }
 }

@@ -3,7 +3,6 @@ package ru.practicum.category.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.category.dto.CategoryDto;
 import ru.practicum.category.dto.NewCategoryDto;
 import ru.practicum.category.mapper.CategoryMapper;
@@ -19,48 +18,48 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
+
     private final CategoryRepository categoryRepository;
 
     /**
      * public
      */
     @Override
-    @Transactional(readOnly = true)
     public CategoryDto getCategoryById(Long categoryId) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(()
                 -> new NotFoundException("Категория с id \"" + categoryId + "\" не найдена"));
         return categoryMapper.categoryToCategoryDto(category);
     }
 
+
     @Override
-    @Transactional(readOnly = true)
     public List<CategoryDto> getAllCategories(PageRequest pageRequest) {
         List<Category> categories = categoryRepository.findAll(pageRequest).toList();
         return categories.stream().map(categoryMapper::categoryToCategoryDto).collect(Collectors.toList());
     }
 
+
     /**
      * admin
      */
     @Override
-    @Transactional
     public CategoryDto addCategory(NewCategoryDto newCategoryDto) {
         Category category = categoryMapper.newCategoryDtoToCategory(newCategoryDto);
         Category newCategory = categoryRepository.save(category);
         return categoryMapper.categoryToCategoryDto(newCategory);
     }
 
+
     @Override
-    @Transactional
     public void deleteCategory(Long categoryId) {
         categoryRepository.findById(categoryId).orElseThrow(()
                 -> new NotFoundException("Категория с id \"" + categoryId + "\" не найдена"));
         categoryRepository.deleteById(categoryId);
     }
 
+
     @Override
-    @Transactional
-    public CategoryDto updateCategory(Long categoryId, CategoryDto newCategoryDTO) {
+    public CategoryDto updateCategory(Long categoryId, NewCategoryDto newCategoryDTO) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(()
                 -> new NotFoundException("Категория с id \"" + categoryId + "\" не найдена"));
         category.setName(newCategoryDTO.getName());

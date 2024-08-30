@@ -22,7 +22,9 @@ import java.util.stream.Collectors;
 public class PublicCompilationServiceImpl extends CompilationBase implements PublicCompilationService {
 
     private final CompilationMapper compilationMapper;
+
     private final CompilationRepository compilationRepository;
+
     private final EventMapper eventMapper;
 
     public PublicCompilationServiceImpl(CompilationRepository compilationRepository,
