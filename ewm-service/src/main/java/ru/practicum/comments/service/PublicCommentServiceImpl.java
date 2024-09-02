@@ -52,4 +52,8 @@ public class PublicCommentServiceImpl implements PublicCommentService {
 
         return comments.stream().map(commentMapper::commentToUserCommentDto).collect(Collectors.toList());
     }
+
+    public Long getCommentsCountForEvent(Long eventId) {
+        return commentRepository.countByEventIdAndStatus(eventId, CommentStatus.PUBLISHED);
+    }
 }

@@ -90,7 +90,7 @@ public class AdminEventServiceImpl extends EventBase implements AdminEventServic
                 .map(event -> eventMapper.eventToEventDto(
                         event,
                         confirmedRequests.getOrDefault(event.getId(), 0L),
-                        viewStats.getOrDefault(event.getId(), 0L)))
+                        viewStats.getOrDefault(event.getId(), 0L),0L))
                 .collect(Collectors.toList());
     }
 
@@ -111,7 +111,7 @@ public class AdminEventServiceImpl extends EventBase implements AdminEventServic
         updateEventState(event, eventUpdateAdmin.getStateAction());
 
         Event updatedEvent = eventRepository.save(event);
-        return eventMapper.eventToEventDto(updatedEvent, 0L, 0L);
+        return eventMapper.eventToEventDto(updatedEvent, 0L, 0L,0L);
     }
 
     private void updateEventFields(Event event, EventUpdateAdmin eventUpdateAdmin) {

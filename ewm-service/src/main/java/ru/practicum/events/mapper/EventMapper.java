@@ -30,7 +30,7 @@ public class EventMapper {
     private final CategoryMapper categoryMapper;
     private final LocationMapper locationMapper;
 
-    public EventDto eventToEventDto(Event event, Long confirmedRequests, Long views) {
+    public EventDto eventToEventDto(Event event, Long confirmedRequests, Long views,Long commentsCount) {
         String publishedOn = null;
         if (event.getPublishedOn() != null) {
             publishedOn = event.getPublishedOn().format(formatter);
@@ -51,7 +51,8 @@ public class EventMapper {
                 event.getRequestModeration(),
                 confirmedRequests,
                 publishedOn,
-                views
+                views,
+                commentsCount
         );
     }
 
