@@ -49,7 +49,7 @@ public class PrivateCommentServiceImpl implements PrivateCommentService {
     @Override
     public UserCommentDto userUpdateComment(UpdateCommentDto updateCommentDto, Long authorId, Long commentId) {
         Comment comment = commentRepository.findByIdAndAuthorId(commentId, authorId)
-                .orElseThrow(() -> new NotFoundException("Комментарий с id: " + commentId + " не найден или не принадлежит пользователю с id: " + authorId));
+                .orElseThrow(() -> new NotFoundException("Только создатель комментария может его изменять"));
 
         if (updateCommentDto.getText() != null) {
             comment.setText(updateCommentDto.getText());

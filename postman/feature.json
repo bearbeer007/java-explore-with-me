@@ -666,8 +666,8 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test(\"Status code is 409\", function () {\r",
-              "    pm.expect(pm.response.code).to.eql(409);\r",
+              "pm.test(\"Status code is 404\", function () {\r",
+              "    pm.expect(pm.response.code).to.eql(404);\r",
               "});\r",
               "\r",
               "pm.test(\"Has error response body\", function () {\r",
