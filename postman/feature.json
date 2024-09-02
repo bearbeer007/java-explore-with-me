@@ -335,7 +335,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"annotation\": \"Musical concert: Fool In Love 2024\",\r\n    \"category\": {{categoryId1}},\r\n    \"description\": \"Concert in your area for Rock, Folk & Blues, Latin, Jazz, Funk & Soul, Pop, R&B, Hip-Hop, Electronic, and Reggae.\",\r\n    \"eventDate\": \"2024-08-31 11:00:00\",\r\n    \"location\": {\r\n        \"lat\": 34.11038,\r\n        \"lon\": -118.33707\r\n    },\r\n    \"paid\": true,\r\n    \"participantLimit\": 10,\r\n    \"requestModeration\": false,\r\n    \"title\": \"Find out more about Rock, Pop, Hip-Hop, and Electronic.\"\r\n}",
+              "raw": "{\r\n    \"annotation\": \"Musical concert: Fool In Love 2024\",\r\n    \"category\": {{categoryId1}},\r\n    \"description\": \"Concert in your area for Rock, Folk & Blues, Latin, Jazz, Funk & Soul, Pop, R&B, Hip-Hop, Electronic, and Reggae.\",\r\n    \"eventDate\": \"2024-11-21 11:00:00\",\r\n    \"location\": {\r\n        \"lat\": 34.11038,\r\n        \"lon\": -118.33707\r\n    },\r\n    \"paid\": true,\r\n    \"participantLimit\": 10,\r\n    \"requestModeration\": false,\r\n    \"title\": \"Find out more about Rock, Pop, Hip-Hop, and Electronic.\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
