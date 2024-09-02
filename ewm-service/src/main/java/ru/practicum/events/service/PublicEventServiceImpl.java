@@ -1,10 +1,13 @@
 package ru.practicum.events.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.practicum.client.StatsClient;
+import ru.practicum.comments.model.CommentStatus;
+import ru.practicum.comments.repository.CommentRepository;
 import ru.practicum.events.dto.EventDto;
 import ru.practicum.events.dto.EventShortDto;
 import ru.practicum.events.mapper.EventMapper;
@@ -38,6 +41,9 @@ public class PublicEventServiceImpl extends EventBase implements PublicEventServ
         this.statClient = statsClient;
     }
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     @Override
     public EventDto getEventById(Long eventId, HttpServletRequest request) {
         Event event = eventRepository.findById(eventId).orElseThrow(()
@@ -47,9 +53,11 @@ public class PublicEventServiceImpl extends EventBase implements PublicEventServ
         }
         sendEndpointHit(request);
         List<Event> events = List.of(event);
+        Long commentsCount = commentRepository.countByEventIdAndStatus(eventId, CommentStatus.PUBLISHED);
         return eventMapper.eventToEventDto(event,
                 getConfirmedRequests(events).getOrDefault(eventId, 0L),
-                getViewsForEvents(events).getOrDefault(eventId, 0L));
+                getViewsForEvents(events).getOrDefault(eventId, 0L),
+                commentsCount);
     }
 
     @Override

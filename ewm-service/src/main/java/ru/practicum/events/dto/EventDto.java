@@ -44,4 +44,6 @@ public class EventDto {
     private String publishedOn;
 
     private Long views;
+
+    private Long commentsCount;
 }
