@@ -11,7 +11,7 @@ import ru.practicum.comments.repository.CommentRepository;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.repository.EventRepository;
 import ru.practicum.exception.NotFoundException;
-import ru.practicum.exception.ViolationException;
+//import ru.practicum.exception.ViolationException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
 
