@@ -71,7 +71,7 @@ public class PrivateEventServiceImpl extends EventBase implements PrivateEventSe
         event.setCreatedOn(LocalDateTime.now());
         event.setState(PENDING);
         Event newEvent = eventRepository.save(event);
-        return eventMapper.eventToEventDto(newEvent, null, null);
+        return eventMapper.eventToEventDto(newEvent, null, null,null);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class PrivateEventServiceImpl extends EventBase implements PrivateEventSe
         Map<Long, Long> confirmedRequests = getConfirmedRequests(eventList);
         Map<Long, Long> viewStats = getViewsForEvents(eventList);
         return eventMapper.eventToEventDto(event, confirmedRequests.getOrDefault(eventId, 0L),
-                viewStats.getOrDefault(eventId, 0L));
+                viewStats.getOrDefault(eventId, 0L), 0L);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class PrivateEventServiceImpl extends EventBase implements PrivateEventSe
         Map<Long, Long> confirmedRequests = getConfirmedRequests(eventList);
         Map<Long, Long> viewStats = getViewsForEvents(eventList);
         return eventMapper.eventToEventDto(event, confirmedRequests.getOrDefault(eventId, 0L),
-                viewStats.getOrDefault(eventId, 0L));
+                viewStats.getOrDefault(eventId, 0L),0L);
     }
 
 
